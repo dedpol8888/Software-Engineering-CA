@@ -20,6 +20,8 @@ namespace WindowsFormsFileApplication
         static bool destinationfile = false;
         string rootpath = string.Empty;
         string destPath = string.Empty;
+        string calcRootPath = string.Empty;
+
         Dictionary<string, string> dictionaryfile = new Dictionary<string, string>();
 
         public Form1()
@@ -31,6 +33,7 @@ namespace WindowsFormsFileApplication
             button3.Visible = false;
             button4.Visible = false;
             btnSubmit.Visible = false;
+            button6.Visible = false;
 
         }
 
@@ -40,7 +43,7 @@ namespace WindowsFormsFileApplication
             if (file.ShowDialog() == DialogResult.OK)
             {
                 rootpath = file.SelectedPath;
-                MessageBox.Show(rootpath);        
+                MessageBox.Show(rootpath);
                 button2.Enabled = true;
                 sourcefile = true;
             }
@@ -59,25 +62,25 @@ namespace WindowsFormsFileApplication
             }
         }
 
-       
+
 
         private void btnSubmit_Click(object sender, EventArgs e)
-        {   
+        {
             if (!sourcefile)
-             {
-                 MessageBox.Show("Select root directory");
-                 return;
-             }
-             if (!destinationfile)
-             {
-                 MessageBox.Show("Select destination directory");
-                 return;
-             }
-            sortFiles( rootpath, destPath);
+            {
+                MessageBox.Show("Select root directory");
+                return;
+            }
+            if (!destinationfile)
+            {
+                MessageBox.Show("Select destination directory");
+                return;
+            }
+            sortFiles(rootpath, destPath);
             comboBox1.Visible = true;
             button4.Visible = true;
             FillCombobox();
-           
+
 
         }
         public void FillCombobox()
@@ -88,13 +91,13 @@ namespace WindowsFormsFileApplication
             comboBox1.SelectedValue = "Id";
 
             comboBox1.Items.Add(new comboboxItems("---Select your option---", 0));
-            comboBox1.Items.Add(new comboboxItems("---List All Directories---",1));
+            comboBox1.Items.Add(new comboboxItems("---List All Directories---", 1));
             comboBox1.Items.Add(new comboboxItems("---List All Files For A Given Directory---", 2));
             comboBox1.Items.Add(new comboboxItems("---List All Sorted Files---", 3));
             comboBox1.SelectedIndex = 0;
 
         }
-        public void sortFiles(string rootpath,string destPath)
+        public void sortFiles(string rootpath, string destPath)
         {
 
             //Read all text files from a given directory '
@@ -108,8 +111,8 @@ namespace WindowsFormsFileApplication
                 Console.WriteLine("Original text file name is::" + orgFileName);
 
                 //create new file 
-                string newfile="sorted" + orgFileName;
-                string sortedFileName = destPath + "\\"+newfile;
+                string newfile = "sorted" + orgFileName;
+                string sortedFileName = destPath + "\\" + newfile;
                 Console.WriteLine("New sorted file name is::" + sortedFileName);
 
                 // To Read the original file 
@@ -122,34 +125,43 @@ namespace WindowsFormsFileApplication
                 //Remove Special charters from a string
                 List<string> list = new List<string>();
 
+
                 Console.WriteLine("Checking for special characters..");
                 string[] dotwords = null;
-                foreach (var singleString in wordsSplit)
-                {
-                    Regex reg = new Regex("[*'\",_&#^@$()€°?!%]");
-                    string singleword = reg.Replace(singleString, string.Empty);
 
-                    if (singleword.Any(c => char.IsDigit(c)))
+                foreach (var line in wordsSplit)
+                {
+
+                    var abcd = line;
+                    string singleword1 = string.Empty;
+
+                    //Regex to remove special characters
+                    Regex reg = new Regex("[*'\",_&#^@$()€°\t|\n|\r?!%'']");
+                    singleword1 = reg.Replace(line, string.Empty);
+
+
+                    //Remove full stop incase of string
+                    if (!line.Any(c => char.IsDigit(c)))
+                    {
+                        if (line.Contains('.'))
+                        {
+                            singleword1 = line.Replace(".", String.Empty);
+                        }
+                    }
+                    else
                     {
                         Regex reg1 = new Regex("[*a-zA-Z]");
-                        singleword = reg1.Replace(singleword, string.Empty);
-
-                    }
-                    else if (singleword.Contains(".") || singleword.Contains(","))
-                    {
-                        dotwords = singleword.Split('.');
-                        Console.WriteLine("removing full stop" + singleword);
-
+                        singleword1 = reg1.Replace(singleword1, string.Empty);
                     }
 
-                    Console.WriteLine("new words:" + singleword);
-                    list.Add(singleword);
 
+                    list.Add(singleword1);
+                    Console.WriteLine(singleword1);
                 }
                 string[] listwords = list.ToArray();
 
-                var words = listwords.OrderBy(s => s, new MyComparer());       
-                
+                var words = listwords.OrderBy(s => s, new MyComparer());
+
                 //count the number of occurences 
                 var dirWordCount = new Dictionary<string, int>();
 
@@ -202,22 +214,19 @@ namespace WindowsFormsFileApplication
                 //storing all files with respect to directories
                 //Check for already existing files
                 dictionaryfile.Add(newfile, destPath);
-                   
+
 
 
                 //writing all sorted files 
-                writeToHistoryFile(newfile,"ListAllFiles");
+                writeToHistoryFile(newfile, "ListAllFiles");
 
             }
             MessageBox.Show("Sorting of files completed!!");
             //wrtiting  all Directories
-            writeToHistoryFile(destPath,"ListDirectory");
+            writeToHistoryFile(destPath, "ListDirectory");
         }
 
-        private void writeToAllHistoryFile()
-        {
-            throw new NotImplementedException();
-        }
+
 
         private void writeToHistoryFile(String files, string flag)
         {
@@ -244,7 +253,8 @@ namespace WindowsFormsFileApplication
                     writer.Close();
                 }
             }
-            else if (flag.Equals("ListAllFiles")) {
+            else if (flag.Equals("ListAllFiles"))
+            {
 
                 try
                 {
@@ -269,13 +279,13 @@ namespace WindowsFormsFileApplication
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             if (comboBox1.SelectedIndex == 1)
             {
                 textBox1.Visible = true;
                 Console.WriteLine("Reading Directoryhistory file");
-                string  configfilePath = ConfigurationManager.AppSettings["AllDirPath"];
-                
+                string configfilePath = ConfigurationManager.AppSettings["AllDirPath"];
+
 
                 StreamReader sr = new StreamReader(@configfilePath);
                 string line;
@@ -283,12 +293,12 @@ namespace WindowsFormsFileApplication
                 while ((line = sr.ReadLine()) != null)
                 {
                     Console.WriteLine(line);
-                    line1 =line1+ Environment.NewLine + line;
+                    line1 = line1 + Environment.NewLine + line;
                 }
-                
-               
+
+
                 textBox1.Text = @line1;
-                
+
 
             }
             else if (comboBox1.SelectedIndex == 2)
@@ -319,11 +329,11 @@ namespace WindowsFormsFileApplication
 
                 textBox1.Text = @line1;
             }
-            else if(comboBox1.SelectedIndex == 4)
+            else if (comboBox1.SelectedIndex == 4)
             {
 
             }
-           
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -332,14 +342,15 @@ namespace WindowsFormsFileApplication
             if (file.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Visible = true;
-                string  directory = file.SelectedPath;
+                string directory = file.SelectedPath;
                 string sortedfile = string.Empty;
                 Console.WriteLine("Retreiving all sorted file for given directory");
                 foreach (KeyValuePair<string, string> keyValue in dictionaryfile)
                 {
                     Console.WriteLine("{0} -> {1}", keyValue.Key, keyValue.Value);
-                    if (keyValue.Value.Equals(directory)) {
-                        sortedfile = sortedfile+Environment.NewLine + keyValue.Key;
+                    if (keyValue.Value.Equals(directory))
+                    {
+                        sortedfile = sortedfile + Environment.NewLine + keyValue.Key;
                     }
                 }
                 textBox1.Text = @sortedfile;
@@ -351,8 +362,104 @@ namespace WindowsFormsFileApplication
             comboBox1.Visible = false;
             textBox1.Visible = false;
             button3.Visible = false;
-            btnSubmit.Visible=false;
+            btnSubmit.Visible = false;
 
+        }
+
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog file = new FolderBrowserDialog();
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                calcRootPath = file.SelectedPath;
+                MessageBox.Show(calcRootPath);
+                button6.Visible = true;
+
+            }
+        }
+
+        public static void calculate(string calcPath)
+        {
+            string newfile = DateTime.Now.ToString("dddd-dd-MMMM-yyyy");
+            Console.WriteLine(newfile.ToString());
+
+            string newFilepath = calcPath + "\\answ" + newfile + ".txt";
+            StreamWriter sw = File.CreateText(newFilepath);
+            //Read all text files from a given directory '
+            string[] files = Directory.GetFiles(calcPath, "*.txt");
+
+            try
+            {
+
+                for (int i = 0; i < files.Length; i++)
+                {
+                    string orgFileName = Path.GetFileName(files[i]);
+                    if (orgFileName.Contains("calc"))
+                    {
+                        Console.WriteLine("Original text file name is::" + orgFileName);
+
+                        //Read files using stream reader
+                        StreamReader sr = new StreamReader(files[i], Encoding.UTF8);
+
+                        //Continue to read until you reach end of file
+                        string[] lines = File.ReadAllLines(files[i]);
+                        var res = (dynamic)null;
+                        foreach (var mathString in lines)
+                        {
+                            Console.WriteLine(mathString);
+
+                            if (mathString.Contains('^'))
+                            {
+                                string[] arr = mathString.Split('^');
+                                double firstdigit = double.Parse(arr[0]);
+                                double seconddigit = double.Parse(arr[1]);
+                                res = Math.Pow(firstdigit, seconddigit);
+                                Console.WriteLine("Power is " + res);
+
+
+                            }
+
+                            else
+                            {
+
+                                res = Evaluate(mathString);
+                                Console.WriteLine("Result is:" + res);
+
+
+                            }
+                            sw.WriteLine(mathString + "=" + res);
+                        }
+
+
+                    }
+                    sw.WriteLine("-------------" + orgFileName + " Completed-------------");
+                }
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception occured: " + ex);
+            }
+
+
+        }
+
+        public static double Evaluate(string expression)
+        {
+            return (double)new System.Xml.XPath.XPathDocument
+            (new System.IO.StringReader("<r/>")).CreateNavigator().Evaluate
+            (string.Format("number({0})", new
+            System.Text.RegularExpressions.Regex(@"([\+\-\*])")
+            .Replace(expression, " ${1} ")
+            .Replace("/", " div ")
+            .Replace("%", " mod ")));
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            calculate(calcRootPath);
+            MessageBox.Show("Completed!!");
         }
     }
 }
