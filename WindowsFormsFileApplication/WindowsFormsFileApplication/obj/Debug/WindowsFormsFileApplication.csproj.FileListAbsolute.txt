@@ -8,6 +8,7 @@ C:\Users\rakesh\source\repos\WindowsFormsFileApplication\WindowsFormsFileApplica
 C:\Users\rakesh\source\repos\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.csproj.CoreCompileInputs.cache
 C:\Users\rakesh\source\repos\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.exe
 C:\Users\rakesh\source\repos\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.pdb
+<<<<<<< HEAD
 C:\Users\rakesh\source\repos\dedpol8888\Software-Engineering-CA\WindowsFormsFileApplication\WindowsFormsFileApplication\bin\Debug\WindowsFormsFileApplication.exe.config
 C:\Users\rakesh\source\repos\dedpol8888\Software-Engineering-CA\WindowsFormsFileApplication\WindowsFormsFileApplication\bin\Debug\WindowsFormsFileApplication.exe
 C:\Users\rakesh\source\repos\dedpol8888\Software-Engineering-CA\WindowsFormsFileApplication\WindowsFormsFileApplication\bin\Debug\WindowsFormsFileApplication.pdb
@@ -18,3 +19,15 @@ C:\Users\rakesh\source\repos\dedpol8888\Software-Engineering-CA\WindowsFormsFile
 C:\Users\rakesh\source\repos\dedpol8888\Software-Engineering-CA\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.csproj.CoreCompileInputs.cache
 C:\Users\rakesh\source\repos\dedpol8888\Software-Engineering-CA\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.exe
 C:\Users\rakesh\source\repos\dedpol8888\Software-Engineering-CA\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.pdb
+=======
+C:\Users\dedpo\source\repos\Software-Engineering-CA2\WindowsFormsFileApplication\WindowsFormsFileApplication\bin\Debug\WindowsFormsFileApplication.exe.config
+C:\Users\dedpo\source\repos\Software-Engineering-CA2\WindowsFormsFileApplication\WindowsFormsFileApplication\bin\Debug\WindowsFormsFileApplication.exe
+C:\Users\dedpo\source\repos\Software-Engineering-CA2\WindowsFormsFileApplication\WindowsFormsFileApplication\bin\Debug\WindowsFormsFileApplication.pdb
+C:\Users\dedpo\source\repos\Software-Engineering-CA2\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.csprojAssemblyReference.cache
+C:\Users\dedpo\source\repos\Software-Engineering-CA2\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.Form1.resources
+C:\Users\dedpo\source\repos\Software-Engineering-CA2\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.Properties.Resources.resources
+C:\Users\dedpo\source\repos\Software-Engineering-CA2\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.csproj.GenerateResource.cache
+C:\Users\dedpo\source\repos\Software-Engineering-CA2\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.csproj.CoreCompileInputs.cache
+C:\Users\dedpo\source\repos\Software-Engineering-CA2\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.exe
+C:\Users\dedpo\source\repos\Software-Engineering-CA2\WindowsFormsFileApplication\WindowsFormsFileApplication\obj\Debug\WindowsFormsFileApplication.pdb
+>>>>>>> 6e92a238cab3a7c933b2b32bf4568cc558f8be24

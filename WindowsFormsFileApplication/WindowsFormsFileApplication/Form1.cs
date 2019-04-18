@@ -23,7 +23,7 @@ namespace WindowsFormsFileApplication
         string destPath = string.Empty;
         string calcRootPath = string.Empty;
 
-        
+
         FilesUtil fileutils = new FilesUtil();
         public Form1()
         {
@@ -44,7 +44,7 @@ namespace WindowsFormsFileApplication
             if (file.ShowDialog() == DialogResult.OK)
             {
                 rootpath = file.SelectedPath;
-                MessageBox.Show(rootpath);        
+                MessageBox.Show(rootpath);
                 button2.Enabled = true;
                 sourcefile = true;
             }
@@ -63,25 +63,25 @@ namespace WindowsFormsFileApplication
             }
         }
 
-       
+
 
         private void btnSubmit_Click(object sender, EventArgs e)
-        {   
+        {
             if (!sourcefile)
-             {
-                 MessageBox.Show("Select root directory");
-                 return;
-             }
-             if (!destinationfile)
-             {
-                 MessageBox.Show("Select destination directory");
-                 return;
-             }
-            fileutils.sortFiles( rootpath, destPath);
+            {
+                MessageBox.Show("Select root directory");
+                return;
+            }
+            if (!destinationfile)
+            {
+                MessageBox.Show("Select destination directory");
+                return;
+            }
+            fileutils.sortFiles(rootpath, destPath);
             comboBox1.Visible = true;
             button4.Visible = true;
             FillCombobox();
-           
+
 
         }
         public void FillCombobox()
@@ -92,26 +92,26 @@ namespace WindowsFormsFileApplication
             comboBox1.SelectedValue = "Id";
 
             comboBox1.Items.Add(new comboboxItems("---Select your option---", 0));
-            comboBox1.Items.Add(new comboboxItems("---List All Directories---",1));
+            comboBox1.Items.Add(new comboboxItems("---List All Directories---", 1));
             comboBox1.Items.Add(new comboboxItems("---List All Files For A Given Directory---", 2));
             comboBox1.Items.Add(new comboboxItems("---List All Sorted Files---", 3));
             comboBox1.SelectedIndex = 0;
 
         }
-       
 
-        
 
-        
+
+
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             if (comboBox1.SelectedIndex == 1)
             {
                 textBox1.Visible = true;
                 Console.WriteLine("Reading Directoryhistory file");
-                string  configfilePath = ConfigurationManager.AppSettings["AllDirPath"];
-                
+                string configfilePath = ConfigurationManager.AppSettings["AllDirPath"];
+
 
                 StreamReader sr = new StreamReader(@configfilePath);
                 string line;
@@ -119,12 +119,12 @@ namespace WindowsFormsFileApplication
                 while ((line = sr.ReadLine()) != null)
                 {
                     Console.WriteLine(line);
-                    line1 =line1+ Environment.NewLine + line;
+                    line1 = line1 + Environment.NewLine + line;
                 }
-                
-               
+
+
                 textBox1.Text = @line1;
-                
+
 
             }
             else if (comboBox1.SelectedIndex == 2)
@@ -155,11 +155,11 @@ namespace WindowsFormsFileApplication
 
                 textBox1.Text = @line1;
             }
-            else if(comboBox1.SelectedIndex == 4)
+            else if (comboBox1.SelectedIndex == 4)
             {
 
             }
-           
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -168,7 +168,7 @@ namespace WindowsFormsFileApplication
             if (file.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Visible = true;
-                string  directory = file.SelectedPath;
+                string directory = file.SelectedPath;
                 string sortedfile = fileutils.getAllDirectories(directory);
                 textBox1.Text = @sortedfile;
             }
@@ -179,7 +179,7 @@ namespace WindowsFormsFileApplication
             comboBox1.Visible = false;
             textBox1.Visible = false;
             button3.Visible = false;
-            btnSubmit.Visible=false;
+            btnSubmit.Visible = false;
 
         }
 
@@ -195,7 +195,7 @@ namespace WindowsFormsFileApplication
 
             }
         }
-    
+
 
         private void button6_Click(object sender, EventArgs e)
         {
